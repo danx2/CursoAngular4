@@ -12,17 +12,18 @@ server.use(middlewares);
 
 server.use(jsonServer.bodyParser);
 
-server.get('/echo', (req, res) => {
-    res.jsonp(req.query);
-});
+
+server.post('/login', (req, resp) => {
+    resp.json({message: 'ok'})
+})
 
 server.use(router);
 
 const options = {
-    cert: fs.readFileSync('./backend/keys/cert.pem'),
-    key: fs.readFileSync('./backend/keys/key.pem')
+    cert: fs.readFileSync('backend/keys/cert.pem'),
+    key: fs.readFileSync('backend/keys/key.pem')
 }
 
-https.createServer(options, server).listen(3001, () => {
-    console.log('JSon Server is running on https://localhost:3001');
+https.createServer(options, server).listen(3003, () => {
+    console.log('JSon Server is running on https://localhost:3002');
 })

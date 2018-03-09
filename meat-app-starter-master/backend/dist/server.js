@@ -8,14 +8,14 @@ var router = jsonServer.router('db.json');
 var middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
-server.get('/echo', function (req, res) {
-    res.jsonp(req.query);
+server.post('/login', function (req, resp) {
+    resp.json({ message: 'ok' });
 });
 server.use(router);
 var options = {
-    cert: fs.readFileSync('./backend/keys/cert.pem'),
-    key: fs.readFileSync('./backend/keys/key.pem')
+    cert: fs.readFileSync('backend/keys/cert.pem'),
+    key: fs.readFileSync('backend/keys/key.pem')
 };
-https.createServer(options, server).listen(3001, function () {
-    console.log('JSon Server is running on https://localhost:3001');
+https.createServer(options, server).listen(3002, function () {
+    console.log('JSon Server is running on https://localhost:3002');
 });
