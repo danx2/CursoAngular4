@@ -2,7 +2,7 @@ import * as jsonServer from 'json-server';
 import { Express } from 'express';
 import * as fs from 'fs';
 import * as https from 'https';
-
+import { handleAuthentication } from './auth';
 
 const server: Express = jsonServer.create();
 const router = jsonServer.router('db.json');
@@ -12,10 +12,7 @@ server.use(middlewares);
 
 server.use(jsonServer.bodyParser);
 
-
-server.post('/login', (req, resp) => {
-    resp.json({message: 'ok'})
-})
+server.post('/login', handleAuthentication)
 
 server.use(router);
 
@@ -25,5 +22,5 @@ const options = {
 }
 
 https.createServer(options, server).listen(3003, () => {
-    console.log('JSon Server is running on https://localhost:3002');
+    console.log('JSon Server is running on https://localhost:3003');
 })
