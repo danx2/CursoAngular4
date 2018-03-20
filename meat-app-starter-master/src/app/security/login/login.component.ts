@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  Login() {
+  login() {
     this.loginService
     .login(this.loginForm.value.email, this.loginForm.value.password)
     .subscribe(
