@@ -10,11 +10,12 @@ import 'rxjs/add/operator/filter';
 export class LoginService {
 
     user: User;
+    lastUrl: string;
 
     constructor(private http: HttpClient, private router: Router) {
         this.router.events
             .filter(e => e instanceof NavigationEnd)
-            .subscribe( (e: NavigationEnd) => console.log(e.url));
+            .subscribe( (e: NavigationEnd) => this.lastUrl = e.url);
     }
 
     isLoggedIn(): boolean {
@@ -29,7 +30,7 @@ export class LoginService {
         .do(user => this.user = user);
     }
 
-    handleLogin(path?: string) {
+    handleLogin(path: string = this.lastUrl) {
         this.router.navigate(['/login', btoa(path)]);
     }
 
